@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}BSL Words{% endblock %}
+
+{% block content %}
+<h1 class="bold center" id="wordprompt">{{ chosenword }}</h1>
+
+<a href="" class="btn btn-secondary centerElement" id="newword">New Word</a>
+
+<div>
+    <video autoplay="true" id="videoElement">
+
+    </video>
+</div>
+<script>
+    const video = document.querySelector("#videoElement");
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.log("Something went wrong!");
+            });
+    } else {
+        console.log("getUserMedia not supported");
+    }
+
+    const newWordButton = document.querySelector("#newword");
+    newWordButton.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent the default action of the link
+
+        const apiUrl = "/api/random/{{ requested }}";
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const newWord = data.chosenword;
+                const wordPrompt = document.getElementById("wordprompt");
+                wordPrompt.textContent = newWord;
+
+                //Update the link to the new word
+                //First get the link element by its ID
+                //Then set the href attribute to the new word
+                const newWordLink = document.getElementById("link");
+                newWordLink.href = `https://www.signbsl.com/sign/${newWord}`;
+            })
+            .catch(error => console.error('Error fetching new word:', error));
+    });
+
+</script>
+
+
+
+<div class="bottom-text">
+    <h2>Not sure if you're right: </h2>
+    <a id="link" href="https://www.signbsl.com/sign/{{ chosenword }}">Check Here</a>
+</div>
+
+{% endblock %}
