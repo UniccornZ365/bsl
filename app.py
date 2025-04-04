@@ -22,9 +22,36 @@ def getRandom(category):
 
     return word
 
-@app.route("/random")
-def home():
-    return redirect("/random/everything", code=302)
+
+
+@app.route("/random/everything")
+def everything():
+    file_to_delete = open(join("data","everything.txt"),'w')
+    file_to_delete.close()
+    #directory = [file for file in os.listdir("data") if file != "everything.txt"]
+    for currentFileName in (os.listdir("data")):
+        if currentFileName != "everything.txt":
+            currentFile =open(join("data",currentFileName),"r")
+            currentFileLines = currentFile.readlines()
+            for words in currentFileLines:
+                with open(join("data","everything.txt"), "a") as myfile:
+                    myfile.write(words)
+
+            with open(join("data","everything.txt"), "a") as myfile:
+                    myfile.write("\n")        
+        else:
+            continue
+
+
+    onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
+    strippedList = []
+    for file in onlyfiles:
+        filestripped = file.replace(".txt","")
+        strippedList.append(filestripped.title())
+
+    category = "everything"
+    word = getRandom(category) 
+    return render_template("page.html", requested = category, chosenword = word.replace(' ','-').strip('\n'), files=strippedList)
 
 
 @app.route("/random/<category>")
@@ -53,6 +80,10 @@ def random_word_by_category_api(category):
         "chosenword": word
     }
 
+@app.route("/random")
+def randompage():
+    return redirect("/random/everything", code=302)
+
 @app.route("/about")
 def about():
     onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
@@ -61,6 +92,10 @@ def about():
         filestripped = file.replace(".txt","")
         strippedList.append(filestripped.title())
     return render_template("about.html",files=strippedList)
+
+@app.route("/")
+def home():
+    return redirect("/about", code=302)
 
 if __name__ == "__main__":
     app.run(debug=True)
