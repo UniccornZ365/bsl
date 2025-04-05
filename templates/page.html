@@ -6,6 +6,7 @@
 <h1 class="bold center" id="wordprompt">{{ chosenword }}</h1>
 
 <a href="" class="btn btn-secondary centerElement" id="newword">New Word</a>
+<a href="" class="btn btn-secondary centerElement" id="timedwords">Timed Words</a>
 
 <div>
     <video autoplay="true" id="videoElement">
@@ -27,8 +28,11 @@
     }
 
     const newWordButton = document.querySelector("#newword");
-    newWordButton.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent the default action of the link
+    newWordButton.addEventListener("click", getWord)
+
+    function getWord() {
+
+        //event.preventDefault(); // Prevent the default action of the link
 
         const apiUrl = "/api/random/{{ requested }}";
         fetch(apiUrl)
@@ -45,7 +49,44 @@
                 newWordLink.href = `https://www.signbsl.com/sign/${newWord}`;
             })
             .catch(error => console.error('Error fetching new word:', error));
-    });
+    }
+
+
+    //Create function to hide or deactivate the new word button
+    //Create a script which when Timed Words button is pressed the new word button is hidden
+    const timedWordButton = document.querySelector("#timedwords");
+    timedWordButton.addEventListener("click", TimedWordsOnClick); //example of calling a function
+
+    let timerId;//holds the timer ID when timer is running or null is not running
+
+    function TimedWordsOnClick(event) {
+        //prevents the code following the link from executing
+        event.preventDefault();
+
+        //Find then Hide the new word button
+        const newButton = document.querySelector("#newword");
+        if (newButton) {
+            newButton.classList.toggle("hidden");
+        }
+
+        //start timer
+        if (timerId) {
+            clearInterval(timerId); // Clear any existing timer
+            timerId = null; // Reset timerId
+        } else {
+            onTimer(); // Call immediately to get the first word
+            timerId = setInterval(onTimer, 5000); // 5 seconds interval
+        }
+    }
+
+    function onTimer() {
+        console.log("Timer is up!")
+        getWord()
+        console.log("New word fetched!")
+    }
+
+    //Create a script that automatically gets new word and updates every 5 seconds
+    //If Timed Words this is deactivated and New words is shown again
 
 </script>
 
