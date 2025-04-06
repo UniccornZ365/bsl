@@ -10,8 +10,8 @@ Red
 Yellow
 Pink
 Welcome
-Help-me
-Help-you
+Help me
+Help you
 Support
 Assistance
 Help

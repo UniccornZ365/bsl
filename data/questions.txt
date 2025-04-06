@@ -7,5 +7,5 @@ why
 how
 who
 which
-how-many
-how-old
+how many
+how old

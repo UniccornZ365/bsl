@@ -10,6 +10,14 @@ import os
 
 app = Flask(__name__)
 
+def getFileList():
+    onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
+    strippedList = []
+    for file in onlyfiles:
+        filestripped = file.replace(".txt","")
+        strippedList.append(filestripped.title())
+    return strippedList
+
 def getRandom(category):
 
     possibleWords = []
@@ -18,7 +26,7 @@ def getRandom(category):
     possibleWords = f.readlines()
     f.close()
 
-    word = possibleWords[random.randint(0,(len(possibleWords)-1))]
+    word = possibleWords[random.randint(0,(len(possibleWords)-1))].title()
 
     return word
 
@@ -43,15 +51,11 @@ def everything():
             continue
 
 
-    onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
-    strippedList = []
-    for file in onlyfiles:
-        filestripped = file.replace(".txt","")
-        strippedList.append(filestripped.title())
+    strippedList = getFileList()
 
     category = "everything"
     word = getRandom(category) 
-    return render_template("page.html", requested = category, chosenword = word.replace(' ','-').strip('\n'), files=strippedList)
+    return render_template("page.html", requested = category, chosenword = word.strip('\n'), files=strippedList)
 
 
 @app.route("/random/<category>")
@@ -59,17 +63,13 @@ def random_word_by_category(category):
        
 
     #List Files for Menu
-    onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
-    strippedList = []
-    for file in onlyfiles:
-        filestripped = file.replace(".txt","")
-        strippedList.append(filestripped.title())
+    strippedList = getFileList()
 
     #Find Word if Exists
     file_path = join("data",f"{category.lower()}.txt")
     if os.path.exists(file_path):
         word = getRandom(category) 
-        return render_template("page.html", requested = category, chosenword = word.replace(' ','-').strip('\n'), files=strippedList)
+        return render_template("page.html", requested = category, chosenword = word.strip('\n'), files=strippedList)
     else:
         return render_template("notExist.html", requested = category, files=strippedList)
     
@@ -86,11 +86,7 @@ def randompage():
 
 @app.route("/about")
 def about():
-    onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
-    strippedList = []
-    for file in onlyfiles:
-        filestripped = file.replace(".txt","")
-        strippedList.append(filestripped.title())
+    strippedList = getFileList()
     return render_template("about.html",files=strippedList)
 
 @app.route("/")

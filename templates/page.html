@@ -30,23 +30,39 @@
     const newWordButton = document.querySelector("#newword");
     newWordButton.addEventListener("click", getWord)
 
-    function getWord() {
+    function toTitleCase(str) {
+    return str.replace(
+    /\w+/g,
+    text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+  );
+}
 
-        //event.preventDefault(); // Prevent the default action of the link
+    function getWord(event) {
+
+        event.preventDefault(); // Prevent the default action of the link
 
         const apiUrl = "/api/random/{{ requested }}";
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                const newWord = data.chosenword;
-                const wordPrompt = document.getElementById("wordprompt");
-                wordPrompt.textContent = newWord;
-
+                let newWord = data.chosenword;
+                
                 //Update the link to the new word
                 //First get the link element by its ID
                 //Then set the href attribute to the new word
                 const newWordLink = document.getElementById("link");
-                newWordLink.href = `https://www.signbsl.com/sign/${newWord}`;
+                newWordLink.href = `https://www.signbsl.com/sign/${newWord.replaceAll(" ","-")}`;
+
+                //make title case
+                newWord = toTitleCase(newWord)
+
+                //finding the label on the page
+                const wordPrompt = document.getElementById("wordprompt");
+                //setting the text to be the new word
+                wordPrompt.textContent = newWord;
+                
+              
+                
             })
             .catch(error => console.error('Error fetching new word:', error));
     }
@@ -61,7 +77,9 @@
 
     function TimedWordsOnClick(event) {
         //prevents the code following the link from executing
-        event.preventDefault();
+        if(event != null){
+          event.preventDefault();
+        }
 
         //Find then Hide the new word button
         const newButton = document.querySelector("#newword");
@@ -84,7 +102,7 @@
 
     function onTimer() {
         console.log("Timer is up!")
-        getWord()
+        getWord(null)
         console.log("New word fetched!")
     }
 

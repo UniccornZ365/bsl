@@ -6,5 +6,5 @@ Europe
 France
 Germany
 Italy
-New-York
+New York
 Paris

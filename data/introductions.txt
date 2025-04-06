@@ -1,6 +1,6 @@
 Welcome
-Help-me
-Help-you
+Help me
+Help you
 Support
 Assistance
 Help
@@ -11,22 +11,22 @@ Fingerspelling
 Colour
 Hello
 Bye
-How-are-you?
-I'm-feeling-good
-I'm-not-feeling-good
+How are you?
+I'm feeling good
+I'm not feeling good
 Please
-Thank-you
-Nice-to-meet-you
+Thank you
+Nice to meet you
 good
 bad
 right
 wrong
-well-done
-what-is-your-name?
-my-name-is...
-how-old-are-you?
-I-am-____-years-old
-where-do-you-live?
-I-live-in...
-what-job-do-you-have?
-I-work-as-a...
+well done
+what is your name?
+my name is...
+how old are you?
+I am ____ years old
+where do you live?
+I live in...
+what job do you have?
+I work as a...

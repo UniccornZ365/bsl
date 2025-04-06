@@ -1,15 +1,15 @@
 boss
 builder
-bus-driver
+bus driver
 doctor
 Interpreter
 nurse
 mechanic
 police
 priest
-shop-assistant
-social-worker
-taxi-driver
+shop assistant
+social worker
+taxi driver
 teacher
-teaching-assistant
+teaching assistant
 work
