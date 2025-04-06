@@ -30,7 +30,7 @@ def everything():
     file_to_delete.close()
     #directory = [file for file in os.listdir("data") if file != "everything.txt"]
     for currentFileName in (os.listdir("data")):
-        if currentFileName != "everything.txt" and currentFileName != "words.txt":
+        if currentFileName != "everything.txt" and currentFileName != "words.txt" and currentFileName !="places.txt":
             currentFile =open(join("data",currentFileName),"r")
             currentFileLines = currentFile.readlines()
             for words in currentFileLines:

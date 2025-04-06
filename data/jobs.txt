@@ -1,0 +1,15 @@
+boss
+builder
+bus-driver
+doctor
+Interpreter
+nurse
+mechanic
+police
+priest
+shop-assistant
+social-worker
+taxi-driver
+teacher
+teaching-assistant
+work

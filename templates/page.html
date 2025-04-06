@@ -73,9 +73,12 @@
         if (timerId) {
             clearInterval(timerId); // Clear any existing timer
             timerId = null; // Reset timerId
+            console.log("Timer stopped!")
         } else {
+            console.log("Timer started!")
             onTimer(); // Call immediately to get the first word
-            timerId = setInterval(onTimer, 5000); // 5 seconds interval
+
+            timerId = setInterval(onTimer, 7000); // 7 seconds interval
         }
     }
 
