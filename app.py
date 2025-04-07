@@ -15,8 +15,11 @@ def getFileList():
     strippedList = []
     for file in onlyfiles:
         filestripped = file.replace(".txt","")
+        if filestripped.count("-") > 0:
+            filestripped = filestripped.replace("-","")
         strippedList.append(filestripped.title())
     return strippedList
+
 
 def getRandom(category):
 

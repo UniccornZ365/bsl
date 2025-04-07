@@ -39,8 +39,10 @@
 
     function getWord(event) {
 
+        if (event != null){
         event.preventDefault(); // Prevent the default action of the link
-
+        }
+        
         const apiUrl = "/api/random/{{ requested }}";
         fetch(apiUrl)
             .then(response => response.json())
