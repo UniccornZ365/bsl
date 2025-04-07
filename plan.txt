@@ -9,3 +9,5 @@ Finger Spelling Quiz:
 - Display if correct or not
 - Button for new word
 - Fetch new word and repeat
+
+Example Code: https://github.com/swiftcoder2020/bsl-fingerspelling-js-game 
