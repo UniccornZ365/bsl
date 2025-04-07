@@ -1,0 +1,11 @@
+Finger Spelling Quiz:
+- Create a bank of words in a new text file - could copy the list from hangman project
+- Choose a random word out of the file
+- Turn the letters into a list
+- Replace each item in the list with the file path
+- Iterate through list displaying each letter for a period of time
+- Allow user to enter an answer
+- Check user answer against actual answer
+- Display if correct or not
+- Button for new word
+- Fetch new word and repeat
