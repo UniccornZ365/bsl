@@ -39,16 +39,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    
+                    <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Word Generators
+          </a>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
                         {% for item in files %}
                         {% if request.path.endswith("/about") %}
-                    <li><a class="nav-link" href="random/{{ item }}">{{ item }}</a></li>
+                    <li><a class="nav-link dropdown-item" href="random/{{ item }}">{{ item }}</a></li>
                     {% else %}
-                    <li><a class="nav-link" href="{{ item }}">{{ item }}</a></li>
+                    <li><a class="nav-link dropdown-item" href="{{ item }}">{{ item }}</a></li>
                     {% endif %}
                     {% endfor %}
                     </li>
+          </ul>
+        </li>
 
                 </ul>
                 <img id="moon" src="/static/moon.svg" alt="Activate Dark Mode" title="Activate Dark Mode"

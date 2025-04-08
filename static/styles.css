@@ -3,7 +3,9 @@
             width: 100%;
         }
 
-        a:link {
+        a:link,
+        a:visited {
+            /*comma means or */
             color: #0a2a4a;
             text-decoration: none;
         }
@@ -12,8 +14,18 @@
             margin: 5px;
         }
 
-        .dark a:link {
-            color: #dedddd;
+        .dark .dropdown-menu {
+            background-color: #212529;
+        }
+
+        .dark .dropdown-item:hover {
+            background-color: #5b5b5b;
+        }
+
+        .dark a:link,
+        /*Space means child*/
+        .dark a:visited {
+            color: #ffffff;
             text-decoration: none;
         }
 
@@ -127,6 +139,13 @@
 
         .btn {
             max-width: 200px;
+            color: white;
+        }
+
+        .btn-secondary {
+            /*comma means or */
+            color: #ffffff !important;
+            text-decoration: none;
         }
 
         .form-check {
