@@ -145,6 +145,7 @@
         .btn-secondary {
             /*comma means or */
             color: #ffffff !important;
+            /* Override Bootstrap's default color - don't use normally*/
             text-decoration: none;
         }
 

@@ -10,4 +10,14 @@ Finger Spelling Quiz:
 - Button for new word
 - Fetch new word and repeat
 
+What am I signing quizes:
+- Get random Word from file
+- look up word in dictonary
+- if not found try with a diffrent word
+- if found display video
+- get user to enter answer into box
+- check answer against atual answer
+- display if correct or not
+- button for new word-fetch new word and repeat
+
 Example Code: https://github.com/swiftcoder2020/bsl-fingerspelling-js-game 
