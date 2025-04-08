@@ -1,3 +1,4 @@
 __pycache__/*  
 __azurite_*
 *.py[cod]   # Compiled Python files
+plan.txt #Ignore the plan file
