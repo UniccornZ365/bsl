@@ -96,5 +96,15 @@ def about():
 def home():
     return redirect("/about", code=302)
 
+#Finger Spelling Game
+
+@app.route("/fingerspelling/game")
+def fingerspelling():
+    strippedList = getFileList()
+
+    return render_template("fingerspelling.html", files=strippedList)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
+
