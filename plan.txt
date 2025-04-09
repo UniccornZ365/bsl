@@ -10,14 +10,32 @@ Finger Spelling Quiz:
 - Button for new word
 - Fetch new word and repeat
 
+<blockquote class="signbsldata-embed" data-vidref="he1mjddcip">
+<a href="https://www.signbsl.com/sign/carrot">Watch how to sign 'carrot' in British Sign Language</a>
+</blockquote>
+<script async src="https://embed.signbsl.com/widgets.js" charset="utf-8"></script>
+
 What am I signing quizes:
-- Get random Word from file
-- look up word in dictonary
-- if not found try with a diffrent word
-- if found display video
+- load from json to dictonary
+- pick random word
+- display video
 - get user to enter answer into box
 - check answer against atual answer
 - display if correct or not
 - button for new word-fetch new word and repeat
+
+Example of json dict:
+[
+    {
+        "key": "carrot",
+        "value": "4532543"
+    },
+    {
+        "key": "carrot",
+        "value": "4532543"
+    }
+]
+
+How to turn json dict to python dict: https://sparkbyexamples.com/python/convert-json-to-dictionary-in-python/
 
 Example Code: https://github.com/swiftcoder2020/bsl-fingerspelling-js-game 

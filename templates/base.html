@@ -49,10 +49,10 @@
           <ul class="dropdown-menu">
             <li class="nav-item">
                         {% for item in files %}
-                        {% if request.path.endswith("/about") %}
-                    <li><a class="nav-link dropdown-item" href="random/{{ item }}">{{ item }}</a></li>
-                    {% else %}
+                        {% if "/random" in request.path %}
                     <li><a class="nav-link dropdown-item" href="{{ item }}">{{ item }}</a></li>
+                    {% else %}
+                    <li><a class="nav-link dropdown-item" href="random/{{ item }}">{{ item }}</a></li>
                     {% endif %}
                     {% endfor %}
                     </li>

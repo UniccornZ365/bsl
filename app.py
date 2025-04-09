@@ -14,10 +14,11 @@ def getFileList():
     onlyfiles = [f for f in listdir("data") if isfile(join("data", f))]
     strippedList = []
     for file in onlyfiles:
-        filestripped = file.replace(".txt","")
-        if filestripped.count("-") > 0:
-            filestripped = filestripped.replace("-","")
-        strippedList.append(filestripped.title())
+        if file.count(".txt"):
+            filestripped = file.replace(".txt","")
+            if filestripped.count("-") > 0:
+                filestripped = filestripped.replace("-","")
+            strippedList.append(filestripped.title())
     return strippedList
 
 
@@ -41,7 +42,7 @@ def everything():
     file_to_delete.close()
     #directory = [file for file in os.listdir("data") if file != "everything.txt"]
     for currentFileName in (os.listdir("data")):
-        if currentFileName != "everything.txt" and currentFileName != "words.txt" and currentFileName !="places.txt":
+        if currentFileName != "everything.txt" and currentFileName != "words.txt" and currentFileName !="places.txt" and currentFileName.count(".txt") > 0 :
             currentFile =open(join("data",currentFileName),"r")
             currentFileLines = currentFile.readlines()
             for words in currentFileLines:
@@ -103,6 +104,11 @@ def fingerspelling():
     strippedList = getFileList()
 
     return render_template("fingerspelling.html", files=strippedList)
+
+@app.route("/quiz")
+def test():
+    strippedList = getFileList()
+    return render_template("quiz.html",files = strippedList)
 
 
 if __name__ == "__main__":
