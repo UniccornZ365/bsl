@@ -28,10 +28,6 @@
     <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="http://localhost:5000/about">Practice BSL</a>
-            <!--<div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Dark Mode</label>
-            </div>-->
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -57,11 +53,22 @@
                     {% endfor %}
                     </li>
           </ul>
+          <li class="nav-item">
+            <a class="nav-link active" href="/about">About BSL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/quiz">Quizzes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/fingerspelling/game">Finger Spelling</a>
+          </li>
         </li>
 
                 </ul>
+                
                 <img id="moon" src="/static/moon.svg" alt="Activate Dark Mode" title="Activate Dark Mode"
                     class="hidden icon" />
+
                 <img id="sun" src="/static/sun.svg" alt="Activate Light Mode" title="Activate Light Mode"
                     class="icon" />
 
@@ -69,11 +76,13 @@
 
                 <img id="camera" class="camera hidden dark-icon " src="/static/camera.svg" alt="Activate Camera"
                     title="Activate Camera" />
+
                 <img id="nocamera" class="camera dark-icon " src="/static/nocamera.svg" alt="Deactivate Camera"
                     title="Deactivate Camera" />
 
                 <img id="camera-light" class="camera hidden light-icon" src="/static/camera-light.svg"
                     alt="Activate Camera" title="Activate Camera" />
+
                 <img id="nocamera-light" class="camera light-icon" src="/static/nocamera-light.svg"
                     alt="Deactivate Camera" title="Deactivate Camera" />
 

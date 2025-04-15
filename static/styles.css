@@ -39,9 +39,10 @@
             padding: 0px;
             margin: 0;
             height: 100%;
+            user-select: none;
         }
 
-        .container {
+        .content-centred {
             display: flex;
             /* Enable Flexbox */
             flex-direction: column;
@@ -55,7 +56,6 @@
             position: relative;
             max-width: 90%;
             /* Set relative positioning for the body */
-
         }
 
         .dark h1 {
@@ -75,7 +75,7 @@
         }
 
         .dark .light-icon {
-            display: block;
+            display: inline-block;
         }
 
         .dark .light-icon.hidden {
@@ -98,6 +98,9 @@
 
         .center {
             text-align: center;
+        }
+
+        .breakWords{
             word-wrap: break-word;
             word-break: break-all;
         }
@@ -159,6 +162,7 @@
 
         .camera {
             width: 30px;
+            height: 30px;
         }
 
         .icon {

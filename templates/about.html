@@ -4,47 +4,81 @@
 
 {% block content %}
 <style>
-    body {
-        display: block;
-        justify-content: unset;
-        align-items: unset;
-
+    .container{
+        max-width:800px;
     }
-
-    .container {
-        display: block;
-        height: auto;
-        justify-content: unset;
-        align-items: unset;
-        margin: 10px;
+  
+    .heading-images{
+        width: 80%;
+        max-width:166px;
     }
+ 
+    .dark .heading-images{
+        filter: invert(40%) brightness(210%);
+    }
+    a{
+        margin:0;
+        padding: 0%;
+    }
+    h3{
+        font-size: 50px;
+        text-align: center;
+    }
+    .dark h3{
+        font-size: 50px;
+        text-align: center;
+        color: #fff;
+    }
+    h5{
+        font-size: 30px;
+    }
+    
 </style>
 
-<h2>What is BSL?</h2>
-<p>BSL stands for British Sign Language and is the preferred language for communicating among the deaf community in the
-    UK. It is estimated that over 150,000 people use BSL - this includes those who have learnt it as part of their work
-    or to communicate better with others in their life who use it. Around 87,000 of these people are hearing impaired.
-    BSL uses different grammar and syntax to English unlike SSE which is Sign Supported English which is using BSL signs
-    in the same order as in English as it has the same grammatical rules.</p>
+ 
+    <h3>Practice</h3>
+    <div class="row align-items-start center">
+        <div class="col">
+            <img src="/static/letters/B.svg" alt="B" width="166px" class="heading-images">
+             <div>B</div>
 
-<h2>Where can I learn BSL?</h2>
-<p>The quickest and easiest way to start learning is through an online course. You can learn BSL on a range of different
-    websites but some of the most prominent are: </p>
-<a href="https://www.british-sign.co.uk/">
-    <h2>British Sign</h2>
-</a>
-<p>For £3 it gives you a flexible 20hr CPD certified course that teaches you the basics of BSL including finger
-    spelling, colours and greetings.</p>
-<a href="https://www.signature.org.uk/">
-    <h2>Signature</h2>
-</a>
-<p>A range of courses starting from £9.99 it teaches the basics of BSL using clips, practice and quizzes.</p>
+        </div>
+        <div class="col">
+            <img src="/static/letters/S.svg" alt="S" width="166px" class="heading-images">
+             <div>S</div>
+        </div>
+        <div class="col">
+            <img src="/static/letters/L.svg" alt="L" width="166px" class="heading-images">
+            <div>L</div>
+        </div>
+    </div>
+ 
+    <div class="center">
+    <h2 class="first">What is BSL?</h2>
+    <p>BSL stands for British Sign Language and is the preferred language for communicating among the deaf community in the
+        UK. It is estimated that over 150,000 people use BSL - this includes those who have learnt it as part of their work
+        or to communicate better with others in their life who use it. Around 87,000 of these people are hearing impaired.
+        BSL uses different grammar and syntax to English unlike SSE which is Sign Supported English which is using BSL signs
+        in the same order as in English as it has the same grammatical rules.</p>
 
-<h2>What is this Website?</h2>
-<p>Welcome to Practice BSL. Here we have lots of different word and phrase generators to help you practice your BSL. We
-    don't teach any of the signs but each one has a link to BSL dictionary so you can check if you are correct. We
-    suggest turning on your webcam so you can see if you are doing it correctly - you can always turn it off later if
-    it's unhelpful. All the pages load in dark mode but you can easily switch to light mode by pressing the sun icon in
-    the top right and back into dark using the moon.</p>
+    <h2>Where can I learn BSL?</h2>
+    <p>The quickest and easiest way to start learning is through an online course. You can learn BSL on a range of different
+        websites but some of the most prominent are: </p>
+    <a href="https://www.british-sign.co.uk/">
+        <h2>British Sign</h2>
+    </a>
+    <p>For £3 it gives you a flexible 20hr CPD certified course that teaches you the basics of BSL including finger
+        spelling, colours and greetings.</p>
+    <a href="https://www.signature.org.uk/">
+        <h2>Signature</h2>
+    </a>
+    <p>A range of courses starting from £9.99 it teaches the basics of BSL using clips, practice and quizzes.</p>
 
+    <h2>What is this Website?</h2>
+    <p>Welcome to Practice BSL. Here we have lots of different word and phrase generators to help you practice your BSL. We
+        don't teach any of the signs but each one has a link to BSL dictionary so you can check if you are correct. We
+        suggest turning on your webcam so you can see if you are doing it correctly - you can always turn it off later with the little camera icon in the corner if
+        it's unhelpful. All the pages load in dark mode but you can easily switch to light mode by pressing the sun icon in
+        the top right and back into dark using the moon.</p>
+ </div>
 {% endblock %}

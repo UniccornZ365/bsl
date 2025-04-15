@@ -3,7 +3,8 @@
 {% block title %}BSL Words{% endblock %}
 
 {% block content %}
-<h1 class="bold center" id="wordprompt">{{ chosenword }}</h1>
+<div class="content-centred">
+<h1 class="bold center breakWords" id="wordprompt">{{ chosenword }}</h1>
 
 <a href="" class="btn btn-secondary centerElement" id="newword">New Word</a>
 <a href="" class="btn btn-secondary centerElement" id="timedwords">Timed Words</a>
@@ -119,5 +120,5 @@
     <h2>Not sure if you're right: </h2>
     <a id="link" href="https://www.signbsl.com/sign/{{ chosenword }}">Check Here</a>
 </div>
-
+</div>
 {% endblock %}
