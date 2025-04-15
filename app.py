@@ -117,6 +117,11 @@ def test():
     strippedList = getFileList()
     return render_template("quiz.html",files = strippedList)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    strippedList = getFileList()  # Pass the file list for the menu if needed
+    return render_template("error.html", files=strippedList), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
