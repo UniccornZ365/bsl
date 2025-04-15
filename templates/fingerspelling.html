@@ -1,8 +1,26 @@
-{% extends "base.html" %}
+{% extends "base.html" %} <!--Written in Jinja-->
 
 {% block title %}Finger Spelling Game{% endblock %}
-
 {% block content %}
-<h1>Finger Spelling Game</h1>
-<h2>Coming Soon!</h2>
+<style>
+    .dark .fingerSpellImg{
+        filter: invert(40%) brightness(210%);
+    }
+
+    .fingerSpellImg{
+        display: inline-block;
+    }
+</style>
+
+<div class = "content-centred">
+    <h1 class="title">Finger Spelling Game</h1>
+    <h2>Work In Progress!</h2>
+
+    <div>
+        {% for files in fingerfiles %}
+            <img src="{{files}}" alt="S" width="166px" class="fingerSpellImg"/>
+        {% endfor %}
+    </div>
+
+</div>
 {% endblock %}

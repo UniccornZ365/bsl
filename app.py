@@ -1,9 +1,13 @@
 from flask import Flask,redirect
 from flask import render_template
+
+import os
 from os import listdir
 from os.path import isfile, join
+
 import random
-import os
+
+from fingerspelling import fingerSpellingFiles
 
 #to run this:
 #  flask  --debug run 
@@ -99,15 +103,14 @@ def home():
 
 #Finger Spelling Game
 
-@app.route("/fingerspelling/game")
+@app.route("/fingerspelling")
 def fingerspelling():
     strippedList = getFileList()
+    fingerFiles = fingerSpellingFiles()
 
-    return render_template("fingerspelling.html", files=strippedList)
+    return render_template("fingerspelling.html", files=strippedList, fingerfiles = fingerFiles)
 
-@app.route("/fingerspelling")
-def fingerspellingredirect():
-    return redirect("/fingerspelling/game", code=302)
+
 
 @app.route("/quiz")
 def test():
