@@ -105,6 +105,10 @@ def fingerspelling():
 
     return render_template("fingerspelling.html", files=strippedList)
 
+@app.route("/fingerspelling")
+def fingerspellingredirect():
+    return redirect("/fingerspelling/game", code=302)
+
 @app.route("/quiz")
 def test():
     strippedList = getFileList()
