@@ -106,9 +106,9 @@ def home():
 @app.route("/fingerspelling")
 def fingerspelling():
     strippedList = getFileList()
-    fingerFiles = fingerSpellingFiles()
+    fingerFiles, word = fingerSpellingFiles()
 
-    return render_template("fingerspelling.html", files=strippedList, fingerfiles = fingerFiles)
+    return render_template("fingerspelling.html", files=strippedList, fingerfiles = fingerFiles, word=word)
 
 
 

@@ -22,4 +22,4 @@ def fingerSpellingFiles():
     print(letters)
 
     #At end return list of files to show
-    return letters
+    return letters, word

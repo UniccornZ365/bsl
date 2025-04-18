@@ -3,24 +3,82 @@
 {% block title %}Finger Spelling Game{% endblock %}
 {% block content %}
 <style>
-    .dark .fingerSpellImg{
+    .dark .fingerSpellImg {
         filter: invert(40%) brightness(210%);
-    }
-
-    .fingerSpellImg{
-        display: inline-block;
     }
 </style>
 
-<div class = "content-centred">
-    <h1 class="title">Finger Spelling Game</h1>
-    <h2>Work In Progress!</h2>
+<div class="content-centred">
+    <h1 class="title" id="title">Finger Spelling Game</h1>
 
-    <div>
+    <button type="button" class="btn btn-secondary" id="gamestart">Start</button>
+
+    <div id="gameImg">
         {% for files in fingerfiles %}
-            <img src="{{files}}" alt="S" width="166px" class="fingerSpellImg"/>
+        <img src="{{files}}" width="300px" class="fingerSpellImg hidden" />
         {% endfor %}
+        <div class="hidden">End</div>
     </div>
 
 </div>
+
+<!-- The Javascript for the button to start the game-->
+
+<script>
+    //Add event listener to button
+    const startButton = document.querySelector("#gamestart"); // This finds the button based on it's id
+    startButton.addEventListener("click", startOnQuiz); //example of calling a function
+
+    let timerId;
+    let word = "{{word}}"; // This is the word that will be used in the game. It is passed from the Flask app to the template.
+
+    //Add a function that will be called when button is presses
+    function startOnQuiz(event) {
+
+        if (event != null) {
+            event.preventDefault();
+        }
+
+        console.log("Game function started!")
+
+        //Get rid of the hidden styles on images
+        const gameImg = document.querySelector("#gameImg")
+
+        //Remove Title
+        const title = document.querySelector("#title")
+        if (title) {
+            title.classList.toggle("hidden");
+        }
+
+        //Remove start button as it's not needed
+        if (startButton) {
+            startButton.classList.toggle("hidden");
+        }
+
+        //Get children of gameImg
+
+        const children = gameImg.children;
+        const delay = 2000;
+
+        //Loop over all children of gameImg 
+        for (let i = 0; i < children.length; i++) {
+
+            //Set a timer to show each child in turn
+            setTimeout(function () {
+
+                children[i].classList.remove("hidden");
+
+                if (i > 0) {
+                    children[i - 1].classList.add("hidden");
+                }
+
+            }, delay * i); // Staggered delay by multiplying the delay by the index
+
+        }
+
+
+
+
+    }
+</script>
 {% endblock %}
