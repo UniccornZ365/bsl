@@ -3,9 +3,28 @@
 {% block title %}Finger Spelling Game{% endblock %}
 {% block content %}
 <style>
+
+    #gameImg{
+        height: 300px;
+    }
+
     .dark .fingerSpellImg {
         filter: invert(40%) brightness(210%);
     }
+
+    #refreshText{
+        text-align: center;
+    }
+
+    .btn{
+        width:250px;
+        margin:5px;
+    }
+
+    .dark .form-label{
+        color: aliceblue;
+    }
+
 </style>
 
 <div class="content-centred">
@@ -13,11 +32,26 @@
 
     <button type="button" class="btn btn-secondary" id="gamestart">Start</button>
 
-    <div id="gameImg">
+    <div id="gameImg" >
         {% for files in fingerfiles %}
         <img src="{{files}}" width="300px" class="fingerSpellImg hidden" />
         {% endfor %}
-        <div class="hidden">End</div>
+        <div class="hidden"></div>
+    </div>
+
+    <div class="mb-3 hidden" id="inputPlace">
+        <label for="answerInput" class="form-label">Enter what the word is:</label>
+        <input type="text" class="form-control" id="answerInput" placeholder="Word">
+        <button type="button" class="btn btn-secondary" id="submitbtn">Submit</button>
+        <button type="button" class="btn btn-secondary" id="replaybtn">Replay</button>
+    </div>
+
+    <h2 id="correctText" class="hidden">Correct</h2>
+    <h2 id="incorrectText" class="hidden">Incorrect</h2>
+    <h2 id="correctAns" class="hidden">Answer: {{word}}</h2>
+    <div  id="refreshText" class="hidden">
+        <h2>Refresh for a New Word</h2>
+        <a href="/fingerspelling" class="btn btn-secondary">Refresh</a>
     </div>
 
 </div>
@@ -28,6 +62,12 @@
     //Add event listener to button
     const startButton = document.querySelector("#gamestart"); // This finds the button based on it's id
     startButton.addEventListener("click", startOnQuiz); //example of calling a function
+
+    const submitButton = document.querySelector("#submitbtn"); // This finds the button based on it's id
+    submitButton.addEventListener("click", endQuiz);
+
+    const replayBtn = document.querySelector("#replaybtn");
+    replayBtn.addEventListener("click", startOnQuiz)
 
     let timerId;
     let word = "{{word}}"; // This is the word that will be used in the game. It is passed from the Flask app to the template.
@@ -41,18 +81,21 @@
 
         console.log("Game function started!")
 
+        const game = document.getElementById("gameImg");
+        game.classList.remove("hidden")
+
         //Get rid of the hidden styles on images
         const gameImg = document.querySelector("#gameImg")
 
         //Remove Title
         const title = document.querySelector("#title")
         if (title) {
-            title.classList.toggle("hidden");
+            title.classList.add("hidden");
         }
 
         //Remove start button as it's not needed
         if (startButton) {
-            startButton.classList.toggle("hidden");
+            startButton.classList.add("hidden");
         }
 
         //Get children of gameImg
@@ -66,19 +109,98 @@
             //Set a timer to show each child in turn
             setTimeout(function () {
 
-                children[i].classList.remove("hidden");
-
+         
+               //Hide the previous item
                 if (i > 0) {
                     children[i - 1].classList.add("hidden");
                 }
-
+                
+                //wait half a second to then revel next
+                setTimeout(()=>{
+                    children[i].classList.remove("hidden");
+                }, 500);  
+                
+                if(i == children.length-1)
+                {
+                    const game = document.getElementById("gameImg");
+                    game.classList.toggle("hidden")
+                }
+            
             }, delay * i); // Staggered delay by multiplying the delay by the index
 
         }
 
+        const inputPlace = document.querySelector("#inputPlace");
+        inputPlace.classList.remove("hidden");
+    }
+
+    function endQuiz(event) {
+
+        if (event != null) {
+            event.preventDefault();
+        }
+
+        //Get hold of box
+        const textinput = document.querySelector("#answerInput");
+
+        let answer = textinput.value.toUpperCase(); // Get the value of the input field and convert it to lowercase
+        console.log("User answer: "+answer);
+
+        //Get hold of correct & incorrect text
+        const correctText = document.querySelector("#correctText");
+        const incorrectText = document.querySelector("#incorrectText");
+
+        //Check if word is equal to user answer
+        if (answer === word) {
+
+            console.log("Correct Answer Inputted! :)");
+            
+            //Check if correctText has hidden
+            if (correctText.classList.contains("hidden")) {
+                correctText.classList.remove("hidden");
+            }
+
+        }
+        else {
+            //Check if incorrectText has hidden
+            console.log("Incorrect Answer Inputted! :(");
+            console.log("Correct Answer was "+word);
+
+            //Check if incorrectText has hidden
+            if (incorrectText.classList.contains("hidden")) {
+                incorrectText.classList.remove("hidden");
+                
+            }
+
+            //Find correctAns text
+            const correctAns = document.querySelector("#correctAns");
+
+            //Check if correctAns has hidden
+            if (correctAns.classList.contains("hidden")) {
+                correctAns.classList.remove("hidden");
+            }
+        }
+
+        //Show refresh text
+        const refreshText = document.querySelector("#refreshText")
+        refreshText.classList.remove("hidden")
+
+        //Reset the input box
+        textinput.value = "";
 
 
+        //Hide input value
+        const inputPlace = document.querySelector("#inputPlace");
+        inputPlace.classList.add("hidden");
+    
 
+        //Set up timer
+        setTimeout(()=>{
+            //code when timer is up
+            incorrectText.classList.add("hidden");
+            correctText.classList.add("hidden");
+            correctAns.classList.add("hidden")
+        },5000)
     }
 </script>
 {% endblock %}
