@@ -224,3 +224,65 @@ Manchester
 Newcastle
 Scotland
 Wales
+ALLIGATOR
+BEAR
+BIRD
+BUTTERFLY
+CAT
+CATERPILLAR
+COW
+CROCODILE
+DEER
+DINOSAUR
+DOG
+DOLPHIN
+DONKEY
+DUCK
+ELEPHANT
+FARM
+FOX
+GIRAFFE
+GUINEA PIG
+HAMSTER
+HIPPO
+HORSE
+KANGAROO
+LION
+MOUSE
+MONKEY
+OCTOPUS
+OWL
+PARROT
+PENGUIN
+PET
+PIG
+PIGEON
+RABBIT
+RAT
+REINDEER
+SHARK
+SHEEP
+SNAIL
+SNAKE
+SPIDER
+TIGER
+TORTOISE
+TURTLE
+WOLF
+WHALE
+ZEBRA
+boss
+builder
+bus driver
+doctor
+Interpreter
+nurse
+mechanic
+police
+priest
+shop assistant
+social worker
+taxi driver
+teacher
+teaching assistant
+work
