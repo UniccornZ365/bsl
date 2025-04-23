@@ -1,11 +1,20 @@
 {% extends "base.html" %} <!--Written in Jinja-->
 
+<!--
+todo:
+-Update correct answer text on more rounds
+-->
+
 {% block title %}Finger Spelling Game{% endblock %}
 {% block content %}
 <style>
 
     #gameImg{
-        height: 300px;
+        height: 200px;
+    }
+
+    .fingerSpellImg{
+         width: 300px;
     }
 
     .dark .fingerSpellImg {
@@ -25,6 +34,10 @@
         color: aliceblue;
     }
 
+    #inputPlace{
+        text-align: center;
+    }
+
 </style>
 
 <div class="content-centred">
@@ -34,7 +47,7 @@
 
     <div id="gameImg" >
         {% for files in fingerfiles %}
-        <img src="{{files}}" width="300px" class="fingerSpellImg hidden" />
+        <img src="{{files}}" class="fingerSpellImg hidden" />
         {% endfor %}
         <div class="hidden"></div>
     </div>
@@ -43,22 +56,37 @@
         <label for="answerInput" class="form-label">Enter what the word is:</label>
         <input type="text" class="form-control" id="answerInput" placeholder="Word">
         <button type="button" class="btn btn-secondary" id="submitbtn">Submit</button>
-        <button type="button" class="btn btn-secondary" id="replaybtn">Replay</button>
+        <button type="button" class="btn btn-secondary " id="replaybtn">Replay</button>
     </div>
 
     <h2 id="correctText" class="hidden">Correct</h2>
     <h2 id="incorrectText" class="hidden">Incorrect</h2>
-    <h2 id="correctAns" class="hidden">Answer: {{word}}</h2>
-    <div  id="refreshText" class="hidden">
-        <h2>Refresh for a New Word</h2>
-        <a href="/fingerspelling" class="btn btn-secondary">Refresh</a>
+    <div id="correctAnsText" class="hidden">
+        <h2 id="correctAns">Answer:</h2>
+        <h2><span id="word"></span></h2>
     </div>
+    <div  id="refreshText" class="hidden">
+        <h2>Get a new word or end game</h2>
+        <a href="/fingerspelling" class="btn btn-secondary"  id="newWordBtn">Next Word</a>
+        <button type="button" class="btn btn-secondary " id="endGameBtn">End Game</button>
+    </div>
+
+    <div id="gameEnded" class="hidden content-centred">
+        <h1>Game Ended</h1>
+        <h2 id="scoreText" class="hidden">
+            Score: <span id="score" >0</span>
+        </h2>
+    </div>
+
 
 </div>
 
 <!-- The Javascript for the button to start the game-->
 
 <script>
+    //Set score to 0
+    let score = 0
+
     //Add event listener to button
     const startButton = document.querySelector("#gamestart"); // This finds the button based on it's id
     startButton.addEventListener("click", startOnQuiz); //example of calling a function
@@ -67,10 +95,18 @@
     submitButton.addEventListener("click", endQuiz);
 
     const replayBtn = document.querySelector("#replaybtn");
-    replayBtn.addEventListener("click", startOnQuiz)
+    replayBtn.addEventListener("click", startOnQuiz);
+
+    const newWordButton = document.querySelector("#newWordBtn");
+    newWordButton.addEventListener("click", getWordAndFiles);
+
+    const endGameBtn = document.querySelector("#endGameBtn");
+    endGameBtn.addEventListener("click", endGame);
 
     let timerId;
     let word = "{{word}}"; // This is the word that will be used in the game. It is passed from the Flask app to the template.
+    const wordDisplay = document.querySelector("#word");
+    wordDisplay.innerHTML = word;
 
     //Add a function that will be called when button is presses
     function startOnQuiz(event) {
@@ -79,16 +115,30 @@
             event.preventDefault();
         }
 
-        console.log("Game function started!")
+        const correctAnsText = document.querySelector("#correctAnsText")
+        if (!correctAnsText.classList.contains("hidden")) {
+                correctAnsText.classList.add("hidden");
+            }
+
+        console.log("Buttons deactived");
+
+        const replayBtn = document.getElementById("replaybtn");
+        replayBtn.disabled = true;
+
+        const submitBtn = document.getElementById("submitbtn");
+        submitBtn.disabled = true;
+
+
+        console.log("Round started!");
 
         const game = document.getElementById("gameImg");
         game.classList.remove("hidden")
 
         //Get rid of the hidden styles on images
-        const gameImg = document.querySelector("#gameImg")
+        const gameImg = document.querySelector("#gameImg");
 
         //Remove Title
-        const title = document.querySelector("#title")
+        const title = document.querySelector("#title");
         if (title) {
             title.classList.add("hidden");
         }
@@ -112,18 +162,23 @@
          
                //Hide the previous item
                 if (i > 0) {
-                    children[i - 1].classList.add("hidden");
+                    children[i - 1]?.classList.add("hidden");
                 }
                 
                 //wait half a second to then revel next
                 setTimeout(()=>{
-                    children[i].classList.remove("hidden");
+                    children[i]?.classList.remove("hidden");
                 }, 500);  
                 
-                if(i == children.length-1)
+                if(i == children.length-1) //On the last item
                 {
+                    //Hide item
                     const game = document.getElementById("gameImg");
                     game.classList.toggle("hidden")
+
+                    //Re-activate buttons
+                    replayBtn.disabled = false;
+                    submitBtn.disabled = false;
                 }
             
             }, delay * i); // Staggered delay by multiplying the delay by the index
@@ -154,6 +209,16 @@
         if (answer === word) {
 
             console.log("Correct Answer Inputted! :)");
+
+            //Increase score by length of word
+            wordLen = word.length;
+            score += word.length;
+            console.log("Current score:"+score);
+
+            //Find score element and set text value
+            const scoreText = document.querySelector("#score");
+            scoreText.innerHTML = score;
+
             
             //Check if correctText has hidden
             if (correctText.classList.contains("hidden")) {
@@ -166,6 +231,14 @@
             console.log("Incorrect Answer Inputted! :(");
             console.log("Correct Answer was "+word);
 
+            score = score- word.length;
+            console.log("Current score:"+score);
+            //Find score element and set text value
+            const scoreText = document.querySelector("#score");
+            scoreText.innerHTML = score;
+
+            
+
             //Check if incorrectText has hidden
             if (incorrectText.classList.contains("hidden")) {
                 incorrectText.classList.remove("hidden");
@@ -173,13 +246,16 @@
             }
 
             //Find correctAns text
-            const correctAns = document.querySelector("#correctAns");
+            const correctAns = document.querySelector("#correctAnsText");
+
 
             //Check if correctAns has hidden
             if (correctAns.classList.contains("hidden")) {
                 correctAns.classList.remove("hidden");
             }
         }
+
+        scoreText.classList.remove("hidden")
 
         //Show refresh text
         const refreshText = document.querySelector("#refreshText")
@@ -201,6 +277,84 @@
             correctText.classList.add("hidden");
             correctAns.classList.add("hidden")
         },5000)
+    }
+
+
+    function getWordAndFiles(event) {
+
+        if (event != null){
+        event.preventDefault(); // Prevent the default action of the link
+        }
+        
+        const apiUrl = "/api/fingerspelling";
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                
+                //Claer list
+                const imageList = document.querySelector("#gameImg");
+                imageList.replaceChildren(); //Replace old children with new children
+
+                //Things to update:
+                //word
+                word = data.word;
+
+                
+                const wordDisplay = document.querySelector("#word");
+                wordDisplay.innerHTML = word;
+
+                //files
+
+                //Create image tags for each letter
+                //Declare new images with an array
+                let newImages = [];
+
+                //Loop over fingerfiles and create an image tag for each then adding to array
+                data.fingerfiles.forEach(filePath => {
+
+                    //Create new image tag
+                    const img = document.createElement('img');
+
+                    img.src = filePath; //set img path
+                    img.classList.add("fingerSpellImg");
+                    img.classList.add( "hidden");
+
+                    imageList.appendChild(img);
+
+                });
+
+                const blankDiv = document.createElement("div");
+                blankDiv.classList.add("hidden")
+                imageList.appendChild(blankDiv); //Create our blank div
+
+
+
+                
+            })
+            .catch(error => console.error('Error fetching new word and files:', error));
+        
+        //Clear screen
+        textToClear = document.querySelector("#refreshText");
+        textToClear.classList.add("hidden");
+        correctText.classList.add("hidden");
+        incorrectText.classList.add("hidden");
+
+        //Start game again
+        startOnQuiz();
+    }
+
+    function endGame(event){
+        console.log("Game Ended");
+
+        //Clear screen
+        textToClear = document.querySelector("#refreshText");
+        textToClear.classList.add("hidden");
+        correctText.classList.add("hidden");
+        incorrectText.classList.add("hidden");
+
+        //Display End Text
+        gameEndedText = document.querySelector("#gameEnded");
+        gameEndedText.classList.remove("hidden");
     }
 </script>
 {% endblock %}

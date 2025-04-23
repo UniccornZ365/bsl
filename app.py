@@ -110,7 +110,13 @@ def fingerspelling():
 
     return render_template("fingerspelling.html", files=strippedList, fingerfiles = fingerFiles, word=word)
 
-
+@app.route("/api/fingerspelling")
+def fingerspelling_data():
+    fingerFiles, word = fingerSpellingFiles()
+    return{
+        "word":word,
+        "fingerfiles":fingerFiles
+    }
 
 @app.route("/quiz")
 def test():
