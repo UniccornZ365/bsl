@@ -38,3 +38,4 @@ theatre
 watching DVD
 watching TV
 WRITING
+HOLIDAY
